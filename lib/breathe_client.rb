@@ -78,6 +78,8 @@ class BreatheClient
       trainings(employee_id: employee_id, after: after)
     end
 
+    SECONDS_FOR_RATE_LIMIT_RESET = 60
+
     def rate_limited?(error)
       (
         error.instance_of?(Breathe::UnknownError) &&
