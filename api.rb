@@ -2,7 +2,7 @@ require "byebug"
 require "dotenv"
 Dotenv.load
 
-require_relative "./lib/breathe_client"
+require_relative "./lib/redacted_breathe_client"
 
 require "sinatra"
 require "sinatra/json"
@@ -12,19 +12,19 @@ before do
 end
 
 get "/employees" do
-  json BreatheClient.employees
+  json RedactedBreatheClient.employees
 end
 
 get "/absences" do
-  json BreatheClient.absences(employee_id: params[:employee_id], after: params[:after])
+  json RedactedBreatheClient.absences(employee_id: params[:employee_id], after: params[:after])
 end
 
 get "/sicknesses" do
-  json BreatheClient.sicknesses(employee_id: params[:employee_id], after: params[:after])
+  json RedactedBreatheClient.sicknesses(employee_id: params[:employee_id], after: params[:after])
 end
 
 get "/trainings" do
-  json BreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
+  json RedactedBreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
 end
 
 def valid_key?(key)

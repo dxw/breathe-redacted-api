@@ -1,6 +1,6 @@
 require "breathe"
 
-class BreatheClient
+class RedactedBreatheClient
   class << self
     def client
       Breathe::Client.new(api_key: ENV.fetch("BREATHE_API_KEY"), auto_paginate: true)
