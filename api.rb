@@ -25,16 +25,24 @@ end
 
 get "/employees" do
   json RedactedBreatheClient.employees
+rescue RateLimited
+  halt(420, "Redacted API: Rate limited")
 end
 
 get "/absences" do
   json RedactedBreatheClient.absences(employee_id: params[:employee_id], after: params[:after])
+rescue RateLimited
+  halt(420, "Redacted API: Rate limited")
 end
 
 get "/sicknesses" do
   json RedactedBreatheClient.sicknesses(employee_id: params[:employee_id], after: params[:after])
+rescue RateLimited
+  halt(420, "Redacted API: Rate limited")
 end
 
 get "/employee_training_courses" do
   json RedactedBreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
+rescue RateLimited
+  halt(420, "Redacted API: Rate limited")
 end
