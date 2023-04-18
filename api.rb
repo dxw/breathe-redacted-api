@@ -38,3 +38,7 @@ end
 get "/trainings" do
   json RedactedBreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
 end
+
+get "/employee_training_courses" do
+  json RedactedBreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
+end
