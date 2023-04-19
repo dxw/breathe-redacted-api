@@ -1,5 +1,11 @@
 require "breathe"
 
+class RateLimited < StandardError
+  def initialize(msg = "Redacted Breathe Client is rate limited")
+    super
+  end
+end
+
 class RedactedBreatheClient
   class << self
     def client
@@ -15,10 +21,7 @@ class RedactedBreatheClient
         .map { |employee| employee.to_hash.slice(:id, :email) } # This is very important for concealing private information
     rescue => error
       raise unless rate_limited?(error)
-
-      await_rate_limit_reset
-
-      employees
+      raise RateLimited
     end
 
     def absences(employee_id:, after:)
@@ -34,10 +37,7 @@ class RedactedBreatheClient
         .map(&:to_hash)
     rescue => error
       raise unless rate_limited?(error)
-
-      await_rate_limit_reset
-
-      absences(employee_id: employee_id, after: after)
+      raise RateLimited
     end
 
     def sicknesses(employee_id:, after:)
@@ -53,10 +53,7 @@ class RedactedBreatheClient
         .map(&:to_hash)
     rescue => error
       raise unless rate_limited?(error)
-
-      await_rate_limit_reset
-
-      sicknesses(employee_id: employee_id, after: after)
+      raise RateLimited
     end
 
     def trainings(employee_id:, after:)
@@ -72,13 +69,8 @@ class RedactedBreatheClient
         .map(&:to_hash)
     rescue => error
       raise unless rate_limited?(error)
-
-      await_rate_limit_reset
-
-      trainings(employee_id: employee_id, after: after)
+      raise RateLimited
     end
-
-    SECONDS_FOR_RATE_LIMIT_RESET = 60
 
     def rate_limited?(error)
       (
@@ -89,11 +81,6 @@ class RedactedBreatheClient
         error.instance_of?(TypeError) &&
         error.message == "no implicit conversion of nil into Array"
       )
-    end
-
-    def await_rate_limit_reset
-      puts "Waiting #{SECONDS_FOR_RATE_LIMIT_RESET} seconds due to rate limiting by Breathe"
-      sleep SECONDS_FOR_RATE_LIMIT_RESET
     end
   end
 end
