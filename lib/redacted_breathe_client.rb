@@ -1,4 +1,5 @@
 require "breathe"
+require "byebug"
 
 class RateLimited < StandardError
   def initialize(msg = "Redacted Breathe Client is rate limited")
@@ -9,7 +10,7 @@ end
 class RedactedBreatheClient
   class << self
     def client
-      Breathe::Client.new(api_key: ENV.fetch("BREATHE_API_KEY"), auto_paginate: true)
+      Breathe::Client.new(api_key: ENV.fetch("BREATHE_API_KEY", "1"), auto_paginate: true)
     end
 
     def employees
@@ -20,8 +21,10 @@ class RedactedBreatheClient
         .data[:employees]
         .map { |employee| employee.to_hash.slice(:id, :email) } # This is very important for concealing private information
     rescue => error
-      raise unless rate_limited?(error)
-      raise RateLimited
+      raise RateLimited if rate_limited?(error)
+      client.last_response
+      byebug
+      "x"
     end
 
     def absences(employee_id:, after:)

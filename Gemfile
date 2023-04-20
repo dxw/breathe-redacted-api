@@ -4,7 +4,8 @@ source "https://rubygems.org"
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem "breathe", "0.3.5"
+# gem "breathe", "0.3.5"
+gem "breathe", git: "https://github.com/dxw/breathe_ruby", branch: "dragon"
 gem "dotenv"
 gem "puma"
 gem "rake"
