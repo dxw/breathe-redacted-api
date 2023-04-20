@@ -21,10 +21,8 @@ class RedactedBreatheClient
         .data[:employees]
         .map { |employee| employee.to_hash.slice(:id, :email) } # This is very important for concealing private information
     rescue => error
-      raise RateLimited if rate_limited?(error)
-      client.last_response
-      byebug
-      "x"
+      raise unless rate_limited?(error)
+      raise RateLimited
     end
 
     def absences(employee_id:, after:)
