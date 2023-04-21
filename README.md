@@ -19,8 +19,8 @@ data, only a handful of people have access to it.
 ## API
 
 ### Authorization
-Use bearer token authorisation with an API key for this app (not one for
-BreatheHR)
+
+Pass an API key for this app (not one for BreatheHR) via the `X-Api-Key` header
 
 ### Endpoints
 

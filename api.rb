@@ -7,7 +7,7 @@ require "sinatra"
 require "sinatra/json"
 
 def valid_key?(key)
-  key.split[1] === ENV.fetch("MIDDLEMAN_API_KEY")
+  key === ENV.fetch("MIDDLEMAN_API_KEY")
 end
 
 def ensure_key_is_set
@@ -20,7 +20,7 @@ ensure_key_is_set
 # Routing
 
 before do
-  error 401, "API key invalid" unless valid_key?(request.env["HTTP_AUTHORIZATION"])
+  error 401, "API key invalid" unless valid_key?(request.env["HTTP_X_API_KEY"])
 end
 
 get "/employees" do
