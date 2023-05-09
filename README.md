@@ -27,13 +27,14 @@ Pass an API key for this app (not one for BreatheHR) via the `X-Api-Key` header
 The API has four endpoints:
 
 #### `/employees`
+
 Returns a JSON array of the emails and IDs of all employees.
 
-#### `/absences`, `/sicknesses`, `/trainings`
-Each return a JSON array of all
-absences/sicknesses/trainings. Use the filter parameter `employee_id` to limit
-to a particular employee, and `after` with a YYYY-MM-DD date to limit the age of
-items
+#### `/absences`, `/sicknesses`, `/employee_training_courses`
+
+Each return a JSON array of all absences/sicknesses/trainings. Use the filter
+parameter `employee_id` to limit to a particular employee, and `after` with a
+YYYY-MM-DD date to limit the age of items
 
 ```
 /absences?employee_id=123&after=2023-04-06
