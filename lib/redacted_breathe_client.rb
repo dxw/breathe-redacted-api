@@ -41,8 +41,18 @@ class RedactedBreatheClient
           )
           .response
           .data[:absences]
-          .map(&:to_hash)
-        }
+          .map { |absence|
+          absence.to_hash.slice( # This is very important for concealing private information
+            :id,
+            :start_date,
+            :half_start,
+            :half_start_am_pm,
+            :end_date,
+            :half_end,
+            :half_end_am_pm,
+            :cancelled
+          )
+        }}
     rescue => error
       raise unless rate_limited?(error)
       raise RateLimited
@@ -59,8 +69,18 @@ class RedactedBreatheClient
           )
           .response
           .data[:sicknesses]
-          .map(&:to_hash)
-        }
+          .map { |sickness|
+          sickness.to_hash.slice(
+            :id,
+            :start_date,
+            :half_start,
+            :half_start_am_pm,
+            :end_date,
+            :half_end,
+            :half_end_am_pm,
+            :status
+          )
+        }}
     rescue => error
       raise unless rate_limited?(error)
       raise RateLimited
@@ -77,8 +97,17 @@ class RedactedBreatheClient
           )
           .response
           .data[:employee_training_courses]
-          .map(&:to_hash)
-        }
+          .map { |training|
+          training.to_hash.slice(
+            :id,
+            :start_on,
+            :end_on,
+            :half_day,
+            :half_day_am_pm,
+            :hours,
+            :status
+          )
+        }}
     rescue => error
       raise unless rate_limited?(error)
       raise RateLimited
