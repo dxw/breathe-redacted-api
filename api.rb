@@ -42,7 +42,7 @@ rescue RateLimited
 end
 
 get "/employee_training_courses" do
-  json RedactedBreatheClient.trainings(employee_id: params[:employee_id], after: params[:after])
+  json RedactedBreatheClient.employee_training_courses(employee_id: params[:employee_id], after: params[:after])
 rescue RateLimited
   halt(420, "Redacted API: Rate limited")
 end
