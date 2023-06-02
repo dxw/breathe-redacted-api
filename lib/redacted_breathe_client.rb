@@ -44,6 +44,8 @@ class RedactedBreatheClient
           .map { |absence|
           absence.to_hash.slice( # This is very important for concealing private information
             :id,
+            :leave_reason,
+            :type,
             :start_date,
             :half_start,
             :half_start_am_pm,
