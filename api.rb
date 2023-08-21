@@ -1,7 +1,7 @@
 require "dotenv"
 Dotenv.load
 
-require_relative "./lib/redacted_breathe_client"
+require_relative "lib/redacted_breathe_client"
 
 require "sinatra"
 require "sinatra/json"
