@@ -7,6 +7,7 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gem "breathe", "0.3.6"
 gem "dotenv"
 gem "puma"
+gem "rackup", "~> 2.1"
 gem "rake"
 gem "sinatra"
 gem "sinatra-contrib"
